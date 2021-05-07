@@ -2,9 +2,7 @@ import scrapy
 import re
 class Bring(scrapy.Spider):
     name = "quotes"  # nazwa programu do uruchomienia w terminalu
-    start_urls = ['https://www.olx.pl/oferty/q-commodore-64/?search%5Bfilter_float_price%3Afrom%5D=200&page=1',
-                  'https://www.olx.pl/oferty/q-commodore-64/?search%5Bfilter_float_price%3Afrom%5D=200&page=2',
-                  'https://www.olx.pl/oferty/q-commodore-64/?search%5Bfilter_float_price%3Afrom%5D=200&page=2'
+    start_urls = ['https://www.olx.pl/oferty/q-commodore-64/?search%5Bfilter_float_price%3Afrom%5D=200&page=1'
                   ]
 
 
