@@ -1,4 +1,4 @@
-# Scrapy settings for datacollect project
+# Scrapy settings for commodore project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,20 +7,20 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'datacollect'
+BOT_NAME = 'commodore'
 
-SPIDER_MODULES = ['datacollect.spiders']
-NEWSPIDER_MODULE = 'datacollect.spiders'
+SPIDER_MODULES = ['commodore.spiders']
+NEWSPIDER_MODULE = 'commodore.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'datacollect (+http://www.yourdomain.com)'
+#USER_AGENT = 'commodore (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS = 16
+#CONCURRENT_REQUESTS = 32
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -45,13 +45,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'datacollect.middlewares.DatacollectSpiderMiddleware': 543,
+#    'commodore.middlewares.CommodoreSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'datacollect.middlewares.DatacollectDownloaderMiddleware': 543,
+#    'commodore.middlewares.CommodoreDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -63,7 +63,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'datacollect.pipelines.DatacollectPipeline': 300,
+#    'commodore.pipelines.CommodorePipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
