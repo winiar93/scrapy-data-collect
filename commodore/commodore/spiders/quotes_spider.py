@@ -3,7 +3,7 @@ import re
 
 import smtplib
 import os
-
+from ..items import CommodoreItem
 
 class Bring(scrapy.Spider):
     name = "quotes"  # nazwa programu do uruchomienia w terminalu
@@ -12,16 +12,26 @@ class Bring(scrapy.Spider):
 
 
     def parse(self, response):
+
+        items = CommodoreItem()
+
         for data in response.css('div.offer-wrapper'):
-            yield {
-                "name":data.css('strong::text').get(),
-                "price":(data.css('strong::text').extract()[1]).replace('zł',''),
-                "link":data.css('a::attr(href)').extract()[0]
+
+            name = data.css('strong::text').get()
+            link = data.css('a::attr(href)').extract()[0]
+            price = (data.css('strong::text').extract()[1]).replace('zł', '')
 
 
-            }
-        next_page = response.css('a.pageNextPrev::attr(href)').extract()[0]
+            items['name'] = name
+            items['link'] = link
+            items['price'] = price
+
+
+            yield items
+
+        next_page = response.css('a.pageNextPrev::attr(href)').get()
         if next_page is not None:
+
             yield response.follow(next_page, callback=self.parse)
 
 
@@ -52,7 +62,3 @@ class Bring(scrapy.Spider):
         except:
             print('pojawił sie błąd')
 
-
-process = Bring()
-
-process.send_mail()
