@@ -14,3 +14,6 @@ scrapy crawl quotes -o [filename].csv
 
 you can change file format
 red more in --help
+
+
+Additionally you can add your mail to send csv output file - look in quotes_spider.py
