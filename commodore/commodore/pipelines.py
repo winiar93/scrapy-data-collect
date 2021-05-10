@@ -5,9 +5,15 @@
 
 
 # useful for handling different item types with a single interface
+from email.message import EmailMessage
+import smtplib
+from email.message import EmailMessage
+
 from itemadapter import ItemAdapter
 
 
 class CommodorePipeline:
     def process_item(self, item, spider):
+
         return item
+

@@ -1,15 +1,31 @@
-import scrapy
+import logging
 import re
+from os import path
+from datetime import date
 
+import scrapy
+from scrapy.crawler import CrawlerProcess
 import smtplib
+import smtplib
+from email.message import EmailMessage
+import os.path
+
 import os
 from ..items import CommodoreItem
+FILE_NAME = 'oferty-{}'.format(date.today())
+
 
 class Bring(scrapy.Spider):
     name = "quotes"  # nazwa programu do uruchomienia w terminalu
-    start_urls = ['https://www.olx.pl/oferty/q-commodore-64/?search%5Bfilter_float_price%3Afrom%5D=200&page=1'
-                  ]
+    start_urls = ['https://www.olx.pl/oferty/q-commodore-64/?search%5Bfilter_float_price%3Afrom%5D=200&page=1']
 
+    custom_settings = {
+        'FEEDS': {
+            FILE_NAME: {
+                'format': 'csv'
+            }
+        }
+    }
 
     def parse(self, response):
 
@@ -34,31 +50,34 @@ class Bring(scrapy.Spider):
 
             yield response.follow(next_page, callback=self.parse)
 
+    def close(self,reason):
+        logging.info('Data processing finished')
 
 
-    def send_mail(self):
-        mailFrom = '...'
-
-        mailTo = '...'
-
-        mailSubject = 'Testowy mail oferty commodore '
-        mailBody = ''' 
-        '''
-
-        message = '''From: {}
-        Subject: {}
-        testowy mail wyslany przez skrypt w pythonie {}
-        '''.format(mailFrom, mailSubject, mailBody)
-
-
+        msg = EmailMessage()
+        msg['From'] = ''
+        msg['To'] = ''
+        msg['Subject'] = 'oferty commodore'
+        msg.set_content('c64 offers from scraper')
+        file_path = os.path.dirname(__file__)
+        if file_path != "":
+            os.chdir(file_path)
+        f = open('../../{}'.format(FILE_NAME))
+        data = f.read()
+        msg.add_attachment(data, filename='{}.csv'.format(FILE_NAME))
+        # smtplib.SMTP('smtp.gmail.com', 587)
 
         try:
-            server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+            server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+
             server.ehlo()
-            server.login(user,password)
-            server.sendmail(user,mailTo,message)
+            server.login('***', '****')
+            server.send_message(msg)
             server.close()
             print('mail sent')
         except:
-            print('pojawił sie błąd')
+            print('found connection error')
+
+
+
 

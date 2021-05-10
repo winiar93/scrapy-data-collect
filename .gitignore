@@ -127,3 +127,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/commodore/commodore/spiders/mail_dane.py
